@@ -36,7 +36,7 @@ var csharpgenerator = yeoman.generators.Base.extend({
           value: 'xunit'
         },
         {
-          name: 'Console application (windows)',
+          name: 'Console application',
           value: 'consoleapp'
         }
       ]
