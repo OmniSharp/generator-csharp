@@ -105,8 +105,11 @@ var csharpgenerator = yeoman.generators.Base.extend({
         return;
         break;
       case 'consoleapp':
-        this.log('not implemented yet');
-        return;
+        this.sourceRoot(path.join(__dirname, './templates/', this.projecttype));
+        this.template(this.sourceRoot() + '/Program.cs', this.applicationName + '/Program.cs', this.templatedata);
+        this.template(this.sourceRoot() + '/ConsoleApp.csproj', this.applicationName + '/' + this.applicationName + '.csproj', this.templatedata);
+        this.mkdir(this.applicationName + '/Properties/');
+        this.template(this.sourceRoot() + '/Properties/AssemblyInfo.cs', this.applicationName + '/Properties/AssemblyInfo.cs', this.templatedata);
         break; 
     }
   }
