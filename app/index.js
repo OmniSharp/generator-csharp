@@ -73,7 +73,7 @@ var csharpgenerator = yeoman.generators.Base.extend({
 
     var prompts = [{
             name: 'applicationName',
-            message: 'What\'s the name of your ASP.NET application?',
+            message: 'What\'s the name of your ' + app.match(/(?:([A-Z][a-z]+)(?=[A-Z]))|(?:([a-z]+)(?=[A-Z]))|(?:(\d+))|(?:([A-Z][a-z]+))|([A-Z]+)/g).join(' ') + '?',
             default: app
         }];
         this.prompt(prompts, function (props) {
