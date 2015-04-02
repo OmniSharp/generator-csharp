@@ -112,6 +112,19 @@ var csharpgenerator = yeoman.generators.Base.extend({
         this.template(this.sourceRoot() + '/Properties/AssemblyInfo.cs', this.applicationName + '/Properties/AssemblyInfo.cs', this.templatedata);
         break; 
     }
+  },
+  end: function(){
+    switch(this.projecttype){
+      case 'consoleapp':
+        this.log('\r\n');
+        this.log('Your project is now created, you can use the following commands to get going');
+        this.log(chalk.blue('On Windows:'));
+        this.log(chalk.blue('  msbuild ' + this.applicationName + '.csproj /p:OutputPath=bin'));
+        this.log(chalk.blue('  bin\\' + this.applicationName + '.exe'));
+        this.log(chalk.white('On OSX:'));
+        this.log(chalk.yellow('On Linux:'));
+        break;
+    }
   }
 });
 
