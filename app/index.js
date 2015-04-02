@@ -124,6 +124,14 @@ var csharpgenerator = yeoman.generators.Base.extend({
         this.log(chalk.white('On OSX:'));
         this.log(chalk.yellow('On Linux:'));
         break;
+      case "classlibrary":
+        this.log('\r\n');
+        this.log('Your project is now created, you can use the following commands to build');
+        this.log(chalk.blue('On Windows:'));
+        this.log(chalk.blue('  msbuild ' + this.applicationName + '.csproj /p:OutputPath=bin'));
+        this.log(chalk.white('On OSX:'));
+        this.log(chalk.yellow('On Linux:'));
+        break;
     }
   }
 });
