@@ -17,7 +17,7 @@ var csharpgenerator = yeoman.generators.Base.extend({
 
   init: function () {
     // Have Yeoman greet the user.
-    this.log(yosay('Welcome to the marvellous ' + chalk.red('C#') + ' generator!'));
+    this.log(yosay('Welcome to the marvellous ' + chalk.red('C#') + ' generator!'    ));
     this.templatedata = {};
     switch (this.options.fx) {
       case 2:
@@ -35,7 +35,7 @@ var csharpgenerator = yeoman.generators.Base.extend({
     }
   },
 
-  askFor: function () {
+  askFor: function() {
     if (this.fx === 0) {
       return;
     }
@@ -72,7 +72,7 @@ var csharpgenerator = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-  askForName: function (){
+  askForName: function(){
     if (this.fx === 0) {
       return;
     }
@@ -111,7 +111,7 @@ var csharpgenerator = yeoman.generators.Base.extend({
         }.bind(this));
   },
 
-  writing: function (){
+  writing: function(){
     if (this.fx === 0) {
       return;
     }
