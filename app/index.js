@@ -5,9 +5,9 @@ var yosay = require('yosay');
 var path = require('path');
 
 var csharpgenerator = yeoman.generators.Base.extend({
-    constructor: function () {
-        yeoman.generators.Base.apply(this, arguments);
-    },
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
+  },
 
   init: function () {
     // Have Yeoman greet the user.
