@@ -181,10 +181,8 @@ var csharpgenerator = yeoman.generators.Base.extend({
           case 3.5:
           case 4.0:
           case 4.5:
-            this.template(this.sourceRoot() + '/ConsoleApp.35.csproj', this.applicationName + '/' + this.applicationName + '.csproj', this.templatedata);
-            break;
           case 4.6:
-            this.template(this.sourceRoot() + '/ConsoleApp.json', this.applicationName + '/' + this.applicationName + '.json', this.templatedata);
+            this.template(this.sourceRoot() + '/ConsoleApp.35.csproj', this.applicationName + '/' + this.applicationName + '.csproj', this.templatedata);
             break;
         }
         this.mkdir(this.applicationName + '/Properties/');
