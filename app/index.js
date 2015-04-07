@@ -7,15 +7,37 @@ var path = require('path');
 var csharpgenerator = yeoman.generators.Base.extend({
   constructor: function () {
     yeoman.generators.Base.apply(this, arguments);
+    this.option("fx", {
+      desc: "Which .NET Framework version to load",
+      type: "Number",
+      defaults: 4.6,
+      hide: false
+    });
   },
 
   init: function () {
     // Have Yeoman greet the user.
-    this.log(yosay('Welcome to the marvellous ' + chalk.red('C#') + ' generator!'    ));
+    this.log(yosay('Welcome to the marvellous ' + chalk.red('C#') + ' generator!'));
+    switch (this.options.fx) {
+      case 2:
+      case 3:
+      case 3.5:
+      case 4:
+      case 4.5:
+      case 4.6:
+        this.fx = this.options.fx;
+        break;
+      default:
+        this.fx = 0;
+        this.log(chalk.red('Unknown framework version \'' + this.options.fx.toFixed(1) + '\''));
+    }
     this.templatedata = {};
   },
 
-  askFor: function() {
+  askFor: function () {
+    if (this.fx === 0) {
+      return;
+    }
     var done = this.async();
 
     var prompts = [{
@@ -49,7 +71,10 @@ var csharpgenerator = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-  askForName: function(){
+  askForName: function (){
+    if (this.fx === 0) {
+      return;
+    }
     var done = this.async();
     var app = '';
 
@@ -85,7 +110,10 @@ var csharpgenerator = yeoman.generators.Base.extend({
         }.bind(this));
   },
 
-  writing: function(){
+  writing: function (){
+    if (this.fx === 0) {
+      return;
+    }
     this.mkdir(this.applicationName);
 
     switch(this.projecttype){
