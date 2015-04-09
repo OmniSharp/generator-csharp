@@ -14,75 +14,78 @@ var csharpgenerator = yeoman.generators.Base.extend({
     this.log(yosay('Welcome to the marvellous ' + chalk.red('C#') + ' generator!'    ));
     this.templatedata = {};
   },
-
-  askFor: function() {
+  
+  getInfo: function (){
     var done = this.async();
 
-    var prompts = [{
-      type: 'list',
-      name: 'projecttype',
-      message: 'What type of project do you want to create?',
-      choices: [
-        {
-          name: 'Class library',
-          value: 'classlibrary'
-        },
-        {
-          name: "Portable class library",
-          value: 'portableclasslib'
-        },
-        {
-          name: 'xUnit test project',
-          value: 'xunit'
-        },
-        {
-          name: 'Console application',
-          value: 'consoleapp'
-        }
-      ]
-    }];
-
-    this.prompt(prompts, function (props) {
-      this.projecttype = props.projecttype;
-
-      done();
-    }.bind(this));
-  },
-
-  askForName: function(){
-    var done = this.async();
-    var app = '';
-
-    switch(this.projecttype){
-      case 'classlibrary':
-        app = 'ClassLibrary';
-        break;
-      case 'portableclasslib':
-        app = 'PortableClassLibrary';
-        break;
-      case 'xunit':
-        app = 'UnitTest';
-        break;
-      case 'consoleapp':
-        app = 'ConsoleApp';
-        break;
-      default:
-        this.log('Unknown value for projecttype: [' + this.projecttype +']');
-        exit();
+    function askFor() {
+      var prompts = [{
+          type: 'list',
+          name: 'projecttype',
+          message: 'What type of project do you want to create?',
+          choices: [
+            {
+              name: 'Class library',
+              value: 'classlibrary'
+            },
+            {
+              name: "Portable class library",
+              value: 'portableclasslib'
+            },
+            {
+              name: 'xUnit test project',
+              value: 'xunit'
+            },
+            {
+              name: 'Console application',
+              value: 'consoleapp'
+            }
+          ]
+        }];
+      
+      this.prompt(prompts, function (props) {
+        this.projecttype = props.projecttype;
+        askForName.apply(this);
+      }.bind(this));
     }
 
-    var prompts = [{
-            name: 'applicationName',
-            message: 'What\'s the name of your ' + app.match(/(?:([A-Z][a-z]+)(?=[A-Z]))|(?:([a-z]+)(?=[A-Z]))|(?:(\d+))|(?:([A-Z][a-z]+))|([A-Z]+)/g).join(' ') + '?',
-            default: app
+    function askForName() {
+      var app = '';
+      
+      switch (this.projecttype) {
+        case 'classlibrary':
+          app = 'ClassLibrary';
+          break;
+        case 'portableclasslib':
+          app = 'PortableClassLibrary';
+          break;
+        case 'xunit':
+          app = 'UnitTest';
+          break;
+        case 'consoleapp':
+          app = 'ConsoleApp';
+          break;
+        default:
+          this.log('Unknown value for projecttype: [' + this.projecttype + ']');
+          askFor.apply(this);
+          return;
+      }
+      
+      var prompts = [{
+          name: 'applicationName',
+          message: 'What\'s the name of your ' + app.match(/(?:([A-Z][a-z]+)(?=[A-Z]))|(?:([a-z]+)(?=[A-Z]))|(?:(\d+))|(?:([A-Z][a-z]+))|([A-Z]+)/g).join(' ') + '?',
+          default: app
         }];
-        this.prompt(prompts, function (props) {
-            this.templatedata.namespace = props.applicationName;
-            this.templatedata.applicationname = props.applicationName;
-            this.applicationName = props.applicationName;
+      this.prompt(prompts, function (props) {
+        this.templatedata.namespace = props.applicationName;
+        this.templatedata.applicationname = props.applicationName;
+        this.applicationName = props.applicationName;
+        
+        done();
+      }.bind(this));
+    }
 
-            done();
-        }.bind(this));
+    askFor.apply(this);
   },
 
   writing: function(){
